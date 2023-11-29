@@ -1,36 +1,71 @@
-﻿int number = 4566;
-string numberInString = number.ToString();
-char[] letters = numberInString.ToArray();
-int counter0 = 0;
-int counter1 = 0;
-int counter2 = 0;
-int counter3 = 0;
-int counter4 = 0;
-int counter5 = 0;
-int counter6 = 0;
-int counter7 = 0;
-int counter8 = 0;
-int counter9 = 0;
+﻿Employee employee1 = new Employee("Adam", "Kowalski", 45);
+Employee employee2 = new Employee("Bogdan", "Nowak", 35);
+Employee employee3 = new Employee("Celina", "Syrska", 25);
 
-foreach (char letter in letters)
+employee1.AddScore(4);
+employee1.AddScore(5);
+employee1.AddScore(6);
+employee1.AddScore(5);
+employee1.AddScore(6);
+
+employee2.AddScore(9);
+employee2.AddScore(6);
+employee2.AddScore(4);
+employee2.AddScore(4);
+employee2.AddScore(4);
+
+employee3.AddScore(2);
+employee3.AddScore(4);
+employee3.AddScore(4);
+employee3.AddScore(4);
+employee3.AddScore(4);
+
+List<Employee> employees = new List<Employee>()
+
 {
-    if (letter == '0') { counter0++; }
-    if (letter == '1') { counter1++; }
-    if (letter == '2') { counter2++; }
-    if (letter == '3') { counter3++; }
-    if (letter == '4') { counter4++; }
-    if (letter == '5') { counter5++; }
-    if (letter == '6') { counter6++; }
-    if (letter == '7') { counter7++; }
-    if (letter == '8') { counter8++; }
-    if (letter == '9') { counter9++; }
+    employee1, employee2, employee3
+};
+
+int maxResult = 0;
+Employee bestEmployee = null;
+
+foreach (var employee in employees)
+{
+    if (employee.Result > maxResult)
+    {
+        bestEmployee = employee;
+        maxResult = employee.Result;
+    }
 }
-Console.WriteLine("1 => " + counter1);
-Console.WriteLine("2 => " + counter2);
-Console.WriteLine("3 => " + counter3);
-Console.WriteLine("4 => " + counter4);
-Console.WriteLine("5 => " + counter5);
-Console.WriteLine("6 => " + counter6);
-Console.WriteLine("7 => " + counter7);
-Console.WriteLine("8 => " + counter8);
-Console.WriteLine("9 => " + counter9);
+Console.WriteLine("Best result " + bestEmployee.Result + " points");
+Console.WriteLine(bestEmployee.Name + " " + bestEmployee.Surname + " " + bestEmployee.Age + " years");
+
+public class Employee
+{
+    private List<int> score = new List<int>();
+    public void AddScore(int number)
+    {
+        this.score.Add(number);
+    }
+    public Employee(string name, string surname, int age)
+    {
+        this.Name = name;
+        this.Surname = surname;
+        this.Age = age;
+
+    }
+
+    public string Name { get; set; }
+    public string Surname { get; set; }
+    public int Age { get; set; }
+
+    public int Result
+    {
+        get
+        {
+            return this.score.Sum();
+        }
+    }
+
+
+}
